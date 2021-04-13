@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Vacantes</title>
+<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+	<h1><img th:src="@{/images/1.jpg}" width="60" height="60">&nbsp;&nbsp; Lista de vacantes</h1>
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr> 
+				<th>Logo</th>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>Descripcion</th>
+				<th>Fecha</th>
+				<th>Salario</th>
+				<th>Destacado</th>
+				<th>Detalle</th>
+				<th>Eliminar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="vacante : ${vacantes}">
+				<td class="table-info"><img th:src="@{/images/{img}(img=${vacante.imagen})}" width="60" height="60"></td>
+				<td class="table-primary" th:text="${vacante.id}"></td>
+				<td class="table-secondary" th:text="${vacante.nombre}"></td>
+				<td class="table-success" th:text="${vacante.descripcion}"></td>
+				<td class="table-danger" th:text="${vacante.fecha}"></td>
+				<td class="table-warning" th:text="${vacante.salario}"></td>
+				<!-- <td th:text="${vacante.descatado}"></td>  -->
+				<!-- <td th:text="${vacante.descatado == 1}? 'Si' : 'No'"> -->
+				<td class="table-info">
+					<span th:if="${vacante.destacado == 1}" class="badge bg-info text-dark">Si</span>
+					<span th:unless="${vacante.destacado == 1}" class="badge bg-danger">No</span>
+				</td>
+				<td>
+					<a class="btn btn-info"  th:href="@{/vacantes/detalle/{id}(id=${vacante.id})}">Detalle</a>
+				</td>
+				<td class="table-primary">
+					<a class="btn btn-danger" th:href="@{/vacantes/eliminar(id=${vacante.id})}">Eliminar</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
